@@ -14,7 +14,7 @@ A comprehensive task management application built with React and TypeScript, fea
 - **Feature Cards** - Four main functionality modules with hover animations
 - **Navigation Bar** - Clean top navigation with user info and logout
 
-###  Core Modules
+###  Modules
 
 #### 1. Create New Task
 - **File Upload** - Support for Word, PPT, and Excel documents

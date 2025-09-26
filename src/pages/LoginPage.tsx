@@ -29,10 +29,31 @@ const LoginPage: React.FC = () => {
   const [showEnterprisePassword, setShowEnterprisePassword] = useState(false)
   const [isEnterpriseLogging, setIsEnterpriseLogging] = useState(false)
   const [enterpriseMessage, setEnterpriseMessage] = useState('')
+  const [loginMessage, setLoginMessage] = useState('')
   const navigate = useNavigate()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoginMessage('')
+    
+    // Field validation: Check if email is empty
+    if (!email.trim()) {
+      setLoginMessage('Please enter your email')
+      return
+    }
+
+    // Field validation: Check if password is empty
+    if (!password.trim()) {
+      setLoginMessage('Please enter your password')
+      return
+    }
+
+    // Email format validation
+    if (!validateEmail(email)) {
+      setLoginMessage('Please enter a valid email address')
+      return
+    }
+
     setIsLoading(true)
     
     // Simulate login process - always navigate to dashboard
@@ -355,6 +376,13 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Login Error Message */}
+          {loginMessage && (
+            <div className="p-3 rounded-lg text-sm bg-red-100 text-red-700 border border-red-200">
+              {loginMessage}
+            </div>
+          )}
 
           {/* Sign In Button */}
           <div>

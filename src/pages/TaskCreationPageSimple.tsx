@@ -15,7 +15,7 @@ const TaskCreationPageSimple: React.FC = () => {
       alert('Please upload at least one file to create a task.')
       return
     }
-    navigate('/task-settings')
+    navigate('/task-settings', { state: { uploadedFiles } })
   }
 
   const handleFileUpload = (files: FileList | null) => {

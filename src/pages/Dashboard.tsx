@@ -1,9 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LogOut, Plus, Search, CheckSquare, Users, User } from 'lucide-react'
+import { useMessages } from '../contexts/MessageContext'
+import { LogOut, Plus, Search, CheckSquare, Users, User, Mail } from 'lucide-react'
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate()
+  const { unreadCount } = useMessages()
 
   const handleLogout = () => {
     navigate('/login')
@@ -24,6 +26,20 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              {/* Messages Button */}
+              <button
+                onClick={() => navigate('/messages')}
+                className="relative flex items-center px-4 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-200"
+              >
+                <Mail className="h-4 w-4 mr-2" />
+                Messages
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-medium px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
+              
               <button
                 onClick={handleLogout}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-200"
@@ -63,15 +79,17 @@ const Dashboard: React.FC = () => {
               <p className="text-gray-600 leading-relaxed">As a leader, create a new task for your team!</p>
             </div>
             
-            <div className="group bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
+            <div className="group bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20 cursor-pointer"
+                 onClick={() => navigate('/search-tasks')}>
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Search className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Search Tasks</h3>
-              <p className="text-gray-600 leading-relaxed">Find tasks that your team is working on!</p>
+              <p className="text-gray-600 leading-relaxed">Easy search online task here!</p>
             </div>
             
-            <div className="group bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20">
+            <div className="group bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20 cursor-pointer"
+                 onClick={() => navigate('/manage-tasks')}>
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 <CheckSquare className="h-8 w-8 text-white" />
               </div>

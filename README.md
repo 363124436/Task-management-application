@@ -16,13 +16,13 @@ A comprehensive task management application built with React and TypeScript, fea
 
 ###  Modules
 
-#### 1. Create New Task
+#### 1. create New Task
 - **File Upload** - Support for Word, PPT, and Excel documents
 - **Drag & Drop** - Intuitive file upload interface
 - **File Management** - View, remove, and manage uploaded files
 - **Navigation** - Seamless flow to task settings
 
-#### 2. Search Tasks
+#### 2. Search online tasks
 - **Task Discovery** - Find tasks your team is working on
 - **Search Interface** - Quick access to task search functionality
 

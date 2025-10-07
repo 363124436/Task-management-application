@@ -102,8 +102,14 @@ npm run preview
 ### Getting Started
 1. Open your browser and navigate to `http://localhost:3000`
 2. You'll see the login page
-3. Enter any email and password (or leave empty)
-4. Click "Sign In" to navigate to the dashboard
+3. Enter a valid email address
+4. Enter a password that meets security requirements:
+   - Minimum 8 characters
+   - At least one uppercase letter
+   - At least one lowercase letter
+   - At least one number
+   - At least one special character
+5. Click "Sign In" to navigate to the dashboard
 
 ### Using the Application
 
@@ -199,12 +205,38 @@ The application includes five team members:
 - **postcss.config.js**: PostCSS and Autoprefixer setup
 - **tsconfig.json**: TypeScript compiler options
 
+##  Recent Bug Fixes
+
+###  December 2024 Updates
+
+####  **Login Page Password Validation Fix**
+- **Issue**: Login page allowed weak passwords (e.g., 3-character passwords) while registration required strong passwords
+- **Problem**: Password validation inconsistency between login and registration forms
+- **Solution**: Implemented unified password strength validation for login
+- **Requirements**: Passwords must now meet all security criteria:
+  - Minimum 8 characters
+  - At least one uppercase letter
+  - At least one lowercase letter  
+  - At least one number
+  - At least one special character
+- **UI Enhancement**: Added real-time password strength indicator with visual feedback
+
+####  **Task Creation Calendar Date Picker Fix**
+- **Issue**: Calendar date selection was buggy - selecting October 2nd would incorrectly select October 1st
+- **Problem**: Invalid date string creation (`"2025-10-02T"`) causing `Invalid Date` errors
+- **Solution**: Fixed date handling logic to create valid datetime strings
+- **Improvements**:
+  - Proper time format handling (`"2025-10-02T00:00:00"`)
+  - Enhanced date validation with error checking
+  - Improved timezone compatibility
+- **Result**: Calendar date selection now works correctly without date offset issues
+
 ##  Notes
 
 - **Demo Application**: Built for learning and demonstration purposes
 - **No Backend Required**: All functionality is client-side
 - **English Interface**: All UI elements and content in English
-- **Form Validation Disabled**: Simplified for demo purposes
+- **Enhanced Security**: Password validation now enforced across all forms
 - **Mock Data**: Team members and permissions use sample data
 
 ##  Key Features Implemented

@@ -23,10 +23,13 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   useEffect(() => {
     if (value) {
       const dateTime = new Date(value)
-      const dateStr = dateTime.toISOString().split('T')[0]
-      const timeStr = dateTime.toTimeString().slice(0, 5)
-      setSelectedDate(dateStr)
-      setSelectedTime(timeStr)
+      // Check if the date is valid
+      if (!isNaN(dateTime.getTime())) {
+        const dateStr = dateTime.toISOString().split('T')[0]
+        const timeStr = dateTime.toTimeString().slice(0, 5)
+        setSelectedDate(dateStr)
+        setSelectedTime(timeStr)
+      }
     }
   }, [value])
 
@@ -47,13 +50,19 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     if (selectedTime) {
       const dateTime = `${date}T${selectedTime}`
       onChange(dateTime)
+    } else {
+      // If no time is selected, use midnight local time to avoid timezone issues
+      const dateTime = `${date}T00:00:00`
+      onChange(dateTime)
     }
   }
 
   const handleTimeChange = (time: string) => {
     setSelectedTime(time)
     if (selectedDate) {
-      const dateTime = `${selectedDate}T${time}`
+      // Ensure time format includes seconds for proper parsing
+      const timeWithSeconds = time ? `${time}:00` : '00:00:00'
+      const dateTime = `${selectedDate}T${timeWithSeconds}`
       onChange(dateTime)
     }
   }

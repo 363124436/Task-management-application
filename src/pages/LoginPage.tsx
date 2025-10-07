@@ -54,6 +54,13 @@ const LoginPage: React.FC = () => {
       return
     }
 
+    // Password strength validation - same as registration requirements
+    const passwordValidation = validatePassword(password)
+    if (!passwordValidation.isValid) {
+      setLoginMessage('Password must meet security requirements: at least 8 characters with uppercase, lowercase, numbers, and special characters')
+      return
+    }
+
     setIsLoading(true)
     
     // Simulate login process - always navigate to dashboard
@@ -374,6 +381,35 @@ const LoginPage: React.FC = () => {
                   )}
                 </button>
               </div>
+              
+              {/* Password Requirements Indicator */}
+              {password && (
+                <div className="text-xs text-gray-600 space-y-1 mt-2">
+                  <p className="font-medium">Password Requirements:</p>
+                  <div className="space-y-1">
+                    <div className={`flex items-center ${password.length >= 8 ? 'text-green-600' : 'text-red-600'}`}>
+                      {password.length >= 8 ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                      At least 8 characters
+                    </div>
+                    <div className={`flex items-center ${/[A-Z]/.test(password) ? 'text-green-600' : 'text-red-600'}`}>
+                      {/[A-Z]/.test(password) ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                      Contains uppercase letter
+                    </div>
+                    <div className={`flex items-center ${/[a-z]/.test(password) ? 'text-green-600' : 'text-red-600'}`}>
+                      {/[a-z]/.test(password) ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                      Contains lowercase letter
+                    </div>
+                    <div className={`flex items-center ${/\d/.test(password) ? 'text-green-600' : 'text-red-600'}`}>
+                      {/\d/.test(password) ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                      Contains number
+                    </div>
+                    <div className={`flex items-center ${/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-600' : 'text-red-600'}`}>
+                      {/[!@#$%^&*(),.?":{}|<>]/.test(password) ? <CheckCircle className="h-3 w-3 mr-1" /> : <AlertCircle className="h-3 w-3 mr-1" />}
+                      Contains special character
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
